@@ -1,47 +1,45 @@
-noseX = 0;
-noseY = 0;
+noseX=0;
+noseY=0;
 
-function preload()
+function preload() 
 {
-    mustache = loadImage('https://i.postimg.cc/SRYJnXxY/Mutache.jpg');
+  mustache = loadImage('https://i.postimg.cc/3x3QzSGq/m.png');
 }
 
-function setup()
+function setup() 
 {
-    canvas = createCanvas(300, 300);
-    canvas.center();
-    video = createCapture(VIDEO);
-    video.size(300, 300);
-    video.hide();
+  canvas = createCanvas(300, 300);
+  canvas.center();
+  video = createCapture(VIDEO);
+  video.size(300, 300);
+  video.hide();
 
-    poseNet = ml5.poseNet(video, modelLoaded);
-    poseNet.on('pose', gotPoses);
+  poseNet = ml5.poseNet(video, modelLoaded);
+  poseNet.on('pose', gotPoses);
 }
 
-function modelLoaded()
+function modelLoaded() 
 {
-    console.log("PoseNet is initialized!");
+  console.log('PoseNet Is Initialized');
 }
 
 function gotPoses(results)
 {
-    if(results.leangth > 0)
-    {
-        console.log(results);
-        noseY = results[0].pose.nose.x-5;
-        noseX = results[0].pose.nose.y;
-        console.log("nose x = " + noseX);
-        console.log("nose y = " + noseY);
-    }
+  if(results.length > 0)
+  {
+    console.log(results);
+    noseX = results[0].pose.nose.x-40;
+    noseY = results[0].pose.nose.y;
+  }
 }
 
-function draw()
+function draw() 
 {
-    image(video, 0, 0, 300, 300);
-    image(mustache, noseX, noseY, 94, 30);
+  image(video, 0, 0, 300, 300);
+  image(mustache, noseX, noseY, 80, 35);
 }
 
 function take_snapshot()
-{
-    save('myFilterImage.png');
+{    
+  save('myFilterImage.png');
 }
